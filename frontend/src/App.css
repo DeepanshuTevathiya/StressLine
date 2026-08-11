@@ -1,0 +1,633 @@
+/* App.css — StressLine Dashboard Layout */
+
+/* ══════════════════════════════════════════════════
+   HEADER — compact, sticky cockpit bar
+   ══════════════════════════════════════════════════ */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  height: var(--header-h);
+  background: rgba(11, 12, 14, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--clr-border-med);
+  display: flex;
+  align-items: center;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+.logo-icon {
+  width: 30px;
+  height: 30px;
+  background: var(--clr-accent);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.logo-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--clr-text-primary);
+  letter-spacing: -0.01em;
+}
+
+.logo-sub {
+  font-size: 0.6rem;
+  color: var(--clr-text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Status bar — right side of header */
+.status-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+}
+
+.status-item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  color: var(--clr-text-muted);
+  font-size: 0.75rem;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* LIVE indicator */
+.live-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border: 1px solid rgba(255, 128, 0, 0.35);
+  border-radius: var(--radius-xs);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--clr-accent);
+  font-family: 'JetBrains Mono', monospace;
+  background: rgba(255, 128, 0, 0.06);
+}
+
+.live-indicator .dot {
+  width: 6px;
+  height: 6px;
+}
+
+/* ══════════════════════════════════════════════════
+   SESSION BAR — slim pipeline progress strip
+   ══════════════════════════════════════════════════ */
+.session-bar {
+  height: var(--session-h);
+  background: var(--clr-surface);
+  border-bottom: 1px solid var(--clr-border);
+  display: flex;
+  align-items: center;
+}
+
+.session-bar-inner {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-6);
+  width: 100%;
+}
+
+.session-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--clr-accent);
+  font-family: 'JetBrains Mono', monospace;
+  white-space: nowrap;
+  padding-right: var(--sp-4);
+  border-right: 1px solid var(--clr-border-med);
+}
+
+.session-filename {
+  font-size: 0.75rem;
+  color: var(--clr-text-secondary);
+  font-family: 'JetBrains Mono', monospace;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+  flex-shrink: 0;
+}
+
+/* Pipeline steps in session bar */
+.pipeline {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.pipeline-step {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 12px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--clr-text-muted);
+  font-family: 'JetBrains Mono', monospace;
+  border-right: 1px solid var(--clr-border);
+  white-space: nowrap;
+  transition: var(--transition);
+}
+
+.pipeline-step:last-child { border-right: none; }
+
+.pipeline-step.active {
+  color: var(--clr-accent);
+  background: var(--clr-accent-dim);
+}
+
+.pipeline-step.done {
+  color: var(--clr-teal);
+}
+
+.pipeline-arrow {
+  color: var(--clr-text-muted);
+  font-size: 0.6rem;
+  padding: 0 2px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ══════════════════════════════════════════════════
+   UPLOAD SECTION — prominent before session, compact after
+   ══════════════════════════════════════════════════ */
+.upload-section {
+  padding: var(--sp-8) 0;
+}
+
+/* Upload drop zone */
+.upload-zone {
+  border: 1px dashed var(--clr-border-med);
+  border-radius: var(--radius-md);
+  padding: var(--sp-12) var(--sp-8);
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition);
+  background: var(--clr-surface);
+  position: relative;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.upload-zone:hover,
+.upload-zone.drag-over {
+  border-color: var(--clr-accent);
+  background: var(--clr-surface-2);
+  box-shadow: 0 0 0 1px var(--clr-accent-dim), 0 8px 32px rgba(255,128,0,0.06);
+}
+
+.upload-zone.drag-over {
+  border-style: solid;
+  box-shadow: 0 0 0 1px var(--clr-accent), 0 8px 40px rgba(255,128,0,0.12);
+}
+
+.upload-icon {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: var(--sp-3);
+  opacity: 0.7;
+}
+
+.upload-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: var(--sp-2);
+}
+
+.upload-hint {
+  color: var(--clr-text-muted);
+  font-size: 0.8rem;
+}
+
+.upload-formats {
+  margin-top: var(--sp-4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+}
+
+.format-tag {
+  padding: 2px 6px;
+  background: var(--clr-surface-2);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-xs);
+  font-size: 0.65rem;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--clr-text-muted);
+}
+
+/* File preview row — after file selected */
+.file-preview {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-left: 2px solid var(--clr-accent);
+  border-radius: var(--radius-md);
+  margin-top: var(--sp-4);
+  animation: fadeInUp 0.25s ease both;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.file-icon {
+  width: 36px;
+  height: 36px;
+  background: var(--clr-accent-dim);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.file-info { flex: 1; min-width: 0; }
+
+.file-name {
+  font-weight: 600;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.file-meta {
+  font-size: 0.7rem;
+  color: var(--clr-text-muted);
+  margin-top: 2px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.audio-player {
+  width: 100%;
+  margin-top: var(--sp-3);
+  accent-color: var(--clr-accent);
+  height: 28px;
+}
+
+/* ══════════════════════════════════════════════════
+   DASHBOARD GRID — main two-column layout
+   ══════════════════════════════════════════════════ */
+.dashboard {
+  padding: var(--sp-4) 0 var(--sp-12);
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: var(--sp-4);
+}
+
+/* Radio feed + stress stack in left col */
+.col-left {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+/* Telemetry takes right column, full height */
+.col-right {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+/* Full-width row for lap chart or upload-first state */
+.row-full {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 900px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+  .col-left, .col-right { gap: var(--sp-3); }
+}
+
+/* ══════════════════════════════════════════════════
+   PANEL INTERNALS
+   ══════════════════════════════════════════════════ */
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--sp-4);
+  padding-bottom: var(--sp-3);
+  border-bottom: 1px solid var(--clr-border);
+}
+
+.panel-title {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--clr-text-secondary);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.panel-title-icon {
+  font-size: 0.85rem;
+}
+
+.panel-phase {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--clr-text-muted);
+  background: var(--clr-surface-2);
+  padding: 2px 6px;
+  border-radius: var(--radius-xs);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Placeholder state */
+.placeholder-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 140px;
+  color: var(--clr-text-muted);
+  gap: var(--sp-3);
+  text-align: center;
+}
+
+.placeholder-icon {
+  font-size: 1.8rem;
+  opacity: 0.25;
+}
+
+.placeholder-text {
+  font-size: 0.78rem;
+  max-width: 200px;
+  line-height: 1.6;
+  color: var(--clr-text-muted);
+}
+
+/* ══════════════════════════════════════════════════
+   RADIO FEED — transcript + diarization combined
+   ══════════════════════════════════════════════════ */
+.radio-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-height: 320px;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.radio-line {
+  display: grid;
+  grid-template-columns: 52px 90px 1fr;
+  align-items: baseline;
+  gap: var(--sp-3);
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  animation: fadeInUp 0.25s ease both;
+  transition: background var(--transition);
+}
+
+.radio-line:last-child { border-bottom: none; }
+.radio-line:hover { background: rgba(255,255,255,0.02); }
+
+.radio-ts {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--clr-text-muted);
+  white-space: nowrap;
+}
+
+.radio-speaker-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 7px;
+  border-radius: var(--radius-xs);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-family: 'JetBrains Mono', monospace;
+  white-space: nowrap;
+}
+
+.radio-speaker-tag.driver {
+  background: rgba(255, 128, 0, 0.15);
+  color: var(--clr-accent);
+  border: 1px solid rgba(255, 128, 0, 0.30);
+}
+
+.radio-speaker-tag.engineer {
+  background: rgba(0, 210, 190, 0.12);
+  color: var(--clr-teal);
+  border: 1px solid rgba(0, 210, 190, 0.25);
+}
+
+.radio-text {
+  font-size: 0.82rem;
+  color: var(--clr-text-secondary);
+  line-height: 1.5;
+}
+
+/* ══════════════════════════════════════════════════
+   STRESS / EMOTION ROWS
+   ══════════════════════════════════════════════════ */
+.emotion-row {
+  display: grid;
+  grid-template-columns: 52px 90px 1fr 44px;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: 5px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  animation: fadeInUp 0.25s ease both;
+}
+
+.emotion-row:last-child { border-bottom: none; }
+
+.emotion-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.emotion-bar-wrap {
+  height: 4px;
+  background: var(--clr-surface-3);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.emotion-bar {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.6s ease;
+}
+
+.emotion-score {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--clr-text-muted);
+  text-align: right;
+}
+
+/* ══════════════════════════════════════════════════
+   LAP CHART PANEL
+   ══════════════════════════════════════════════════ */
+.chart-panel {
+  min-height: 320px;
+}
+
+.chart-source-badge {
+  font-size: 0.65rem;
+  font-family: 'JetBrains Mono', monospace;
+  padding: 2px 6px;
+  border-radius: var(--radius-xs);
+  background: var(--clr-accent-dim);
+  color: var(--clr-accent);
+  border: 1px solid rgba(255,128,0,0.25);
+}
+
+.chart-source-badge.default {
+  background: var(--clr-surface-2);
+  color: var(--clr-text-muted);
+  border-color: var(--clr-border);
+}
+
+/* ══════════════════════════════════════════════════
+   HERO — minimal, only shown before any session
+   ══════════════════════════════════════════════════ */
+.hero {
+  padding: var(--sp-12) 0 var(--sp-8);
+  text-align: center;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: 4px 12px;
+  background: var(--clr-accent-dim);
+  border: 1px solid rgba(255, 128, 0, 0.25);
+  border-radius: var(--radius-xs);
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--clr-accent);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: var(--sp-5);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.hero-title {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: var(--sp-4);
+}
+
+.hero-title .accent { color: var(--clr-accent); }
+
+.hero-subtitle {
+  font-size: 0.95rem;
+  color: var(--clr-text-secondary);
+  max-width: 480px;
+  margin: 0 auto var(--sp-8);
+  line-height: 1.7;
+}
+
+/* ══════════════════════════════════════════════════
+   SESSION CONFIRMATION + ERRORS
+   ══════════════════════════════════════════════════ */
+.session-confirm {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-top: var(--sp-3);
+  font-size: 0.72rem;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--clr-teal);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.error-banner {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-top: var(--sp-3);
+  padding: var(--sp-2) var(--sp-3);
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-left: 2px solid #ef4444;
+  border-radius: var(--radius-sm);
+  font-size: 0.78rem;
+  color: #ef4444;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ══════════════════════════════════════════════════
+   FOOTER
+   ══════════════════════════════════════════════════ */
+.footer {
+  padding: var(--sp-6) 0;
+  border-top: 1px solid var(--clr-border);
+  text-align: center;
+  color: var(--clr-text-muted);
+  font-size: 0.7rem;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.05em;
+}

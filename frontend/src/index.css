@@ -1,0 +1,310 @@
+/* ============================================================
+   StressLine — Global Design System
+   McLaren Papaya + Carbon cockpit theme
+   ============================================================ */
+
+/* ── Fonts & Reset ──────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* ── Base surfaces (carbon-black) ── */
+  --clr-bg:          #0b0c0e;
+  --clr-surface:     #111316;
+  --clr-surface-2:   #17191e;
+  --clr-surface-3:   #1e2128;
+  --clr-border:      rgba(255, 255, 255, 0.06);
+  --clr-border-med:  rgba(255, 255, 255, 0.10);
+
+  /* ── Primary accent — McLaren Papaya Orange ── */
+  --clr-accent:      #ff8000;
+  --clr-accent-dim:  rgba(255, 128, 0, 0.12);
+  --clr-accent-glow: rgba(255, 128, 0, 0.30);
+  --clr-border-glow: rgba(255, 128, 0, 0.30);
+
+  /* ── Secondary accent — telemetry teal (engineer) ── */
+  --clr-teal:        #00d2be;
+  --clr-teal-dim:    rgba(0, 210, 190, 0.12);
+
+  /* ── Emotion / stress colors ── */
+  --clr-calm:        #00d2be;   /* teal */
+  --clr-neutral:     #6b7280;   /* gray */
+  --clr-happy:       #a78bfa;   /* violet */
+  --clr-stressed:    #ff8000;   /* orange */
+  --clr-angry:       #ef4444;   /* red */
+  --clr-tired:       #f59e0b;   /* amber */
+  --clr-fearful:     #8b5cf6;   /* purple */
+  --clr-disgust:     #10b981;   /* emerald */
+  --clr-surprised:   #3b82f6;   /* blue */
+
+  /* ── Typography ── */
+  --clr-text-primary:   #f0f2f5;
+  --clr-text-secondary: #8a9099;
+  --clr-text-muted:     #4a5060;
+
+  /* ── Spacing scale ── */
+  --sp-1:  0.25rem;
+  --sp-2:  0.5rem;
+  --sp-3:  0.75rem;
+  --sp-4:  1rem;
+  --sp-5:  1.25rem;
+  --sp-6:  1.5rem;
+  --sp-8:  2rem;
+  --sp-10: 2.5rem;
+  --sp-12: 3rem;
+  --sp-16: 4rem;
+
+  /* ── Border radius — angular/sharp ── */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+
+  /* ── Transitions ── */
+  --transition:      0.18s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ── Layout ── */
+  --header-h:     52px;
+  --session-h:    44px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-color: var(--clr-bg);
+  color: var(--clr-text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-size: 14px;
+}
+
+/* ── Subtle grid / scanline texture ──────────────────────────── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 9998;
+}
+
+/* ── Typography ─────────────────────────────────────────────── */
+h1, h2, h3, h4 {
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+code, .mono {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.85em;
+}
+
+/* ── Layout ─────────────────────────────────────────────────── */
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 var(--sp-6);
+}
+
+/* ── Panel card — sharp cockpit style ──────────────────────── */
+.card {
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  padding: var(--sp-5);
+  position: relative;
+  /* Angular left accent line */
+  border-left: 2px solid var(--clr-accent);
+}
+
+.card.teal-accent {
+  border-left-color: var(--clr-teal);
+}
+
+.card.glow {
+  border-color: var(--clr-border-glow);
+  box-shadow: 0 0 24px rgba(255, 128, 0, 0.08);
+}
+
+/* ── Buttons ────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: 8px var(--sp-5);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: var(--transition);
+  border: none;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: var(--clr-accent);
+  color: #000;
+  box-shadow: 0 2px 12px rgba(255, 128, 0, 0.25);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #e67300;
+  box-shadow: 0 4px 20px rgba(255, 128, 0, 0.40);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active { transform: translateY(0); }
+
+.btn-primary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 1px solid var(--clr-border-med);
+  color: var(--clr-text-secondary);
+  font-size: 0.75rem;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  border-color: var(--clr-accent);
+  color: var(--clr-accent);
+  background: var(--clr-accent-dim);
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--clr-border);
+  color: var(--clr-text-secondary);
+}
+
+.btn-ghost:hover {
+  border-color: var(--clr-accent);
+  color: var(--clr-accent);
+  background: var(--clr-accent-dim);
+}
+
+/* ── Status Badge ───────────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border-radius: var(--radius-xs);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.badge.success {
+  background: rgba(0, 210, 190, 0.12);
+  color: var(--clr-teal);
+  border: 1px solid rgba(0, 210, 190, 0.25);
+}
+
+.badge.error {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.25);
+}
+
+.badge.warning {
+  background: rgba(255, 128, 0, 0.12);
+  color: var(--clr-accent);
+  border: 1px solid rgba(255, 128, 0, 0.25);
+}
+
+.badge.neutral {
+  background: rgba(107, 114, 128, 0.12);
+  color: var(--clr-text-secondary);
+  border: 1px solid rgba(107, 114, 128, 0.2);
+}
+
+/* ── Status dots ────────────────────────────────────────────── */
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.dot.green  { background: var(--clr-teal);   box-shadow: 0 0 5px var(--clr-teal); }
+.dot.red    { background: #ef4444;            box-shadow: 0 0 5px #ef4444; }
+.dot.amber  { background: var(--clr-accent);  box-shadow: 0 0 5px var(--clr-accent); }
+.dot.orange { background: var(--clr-accent);  box-shadow: 0 0 5px var(--clr-accent); }
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.45; transform: scale(0.85); }
+}
+
+.dot.pulse { animation: pulse 1.4s ease-in-out infinite; }
+
+/* ── Animations ─────────────────────────────────────────────── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes shimmer {
+  from { background-position: -200% 0; }
+  to   { background-position:  200% 0; }
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.animate-fade-in  { animation: fadeInUp 0.4s ease both; }
+.animate-fade-in-fast { animation: fadeIn 0.2s ease both; }
+
+/* ── Skeleton loader ────────────────────────────────────────── */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--clr-surface-2) 25%,
+    rgba(255,255,255,0.03) 50%,
+    var(--clr-surface-2) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-sm);
+}
+
+/* ── Loading spinner ────────────────────────────────────────── */
+.spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(0,0,0,0.2);
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: spin 0.65s linear infinite;
+  flex-shrink: 0;
+}
+
+/* ── Scrollbar ──────────────────────────────────────────────── */
+::-webkit-scrollbar        { width: 4px; }
+::-webkit-scrollbar-track  { background: var(--clr-bg); }
+::-webkit-scrollbar-thumb  { background: var(--clr-surface-3); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--clr-text-muted); }

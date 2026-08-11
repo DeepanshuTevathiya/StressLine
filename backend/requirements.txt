@@ -1,0 +1,28 @@
+# Web framework — use latest releases with Python 3.13 prebuilt wheels
+fastapi>=0.115.0
+uvicorn[standard]>=0.32.0
+python-multipart>=0.0.12
+httpx>=0.27.0
+
+# ML core — install separately (large, slow; done in later phases)
+torch>=2.3.1
+torchaudio>=2.3.1
+# Transformers for SER (Phase 3)
+transformers>=4.30.0
+# transformers>=4.41.2
+# accelerate>=0.31.0
+
+# ASR (Phase 1)
+openai-whisper>=20231117
+
+# Diarization (Phase 2 — install when ready, needs HF token)
+pyannote.audio>=3.3.1
+
+# Audio processing (Phase 1+)
+librosa>=0.10.2
+soundfile>=0.12.1
+numpy>=1.26.4
+
+# Utilities
+python-dotenv>=1.0.1
+pydantic>=2.9.0
