@@ -52,15 +52,14 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-# Allow React dev server (port 5173) and production (same origin)
+# CORS configuration — allows local dev, Netlify, and custom frontend URLs
+origins_env = os.environ.get("ALLOWED_ORIGINS", "*")
+allowed_origins = [o.strip() for o in origins_env.split(",")] if origins_env != "*" else ["*"]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-        "http://localhost:3000",
-    ],
-    allow_credentials=True,
+    allow_origins=allowed_origins,
+    allow_credentials=True if allowed_origins != ["*"] else False,
     allow_methods=["*"],
     allow_headers=["*"],
 )

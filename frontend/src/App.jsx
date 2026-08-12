@@ -8,7 +8,7 @@ import './App.css'
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 
-const API_BASE = ''
+const API_BASE = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '')
 const FORMATS = ['.wav', '.mp3', '.m4a', '.flac', '.ogg', '.webm']
 
 const PIPELINE_STEPS = [
