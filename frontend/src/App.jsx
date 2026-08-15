@@ -12,32 +12,32 @@ const API_BASE = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '')
 const FORMATS = ['.wav', '.mp3', '.m4a', '.flac', '.ogg', '.webm']
 
 const PIPELINE_STEPS = [
-  { id: 'upload',   label: 'Upload',     phase: 0 },
-  { id: 'asr',      label: 'Transcribe', phase: 1 },
-  { id: 'diarize',  label: 'Diarize',    phase: 2 },
-  { id: 'emotion',  label: 'SER',        phase: 3 },
-  { id: 'laptime',  label: 'Lap Chart',  phase: 4 },
+  { id: 'upload', label: 'Upload', phase: 0 },
+  { id: 'asr', label: 'Transcribe', phase: 1 },
+  { id: 'diarize', label: 'Diarize', phase: 2 },
+  { id: 'emotion', label: 'SER', phase: 3 },
+  { id: 'laptime', label: 'Lap Chart', phase: 4 },
 ]
 
 // Full SER model label mapping
 const EMOTION_META = {
-  angry:     { emoji: '😠', label: 'Angry',     color: '#ef4444' },
-  anger:     { emoji: '😠', label: 'Angry',     color: '#ef4444' },
-  disgust:   { emoji: '🤢', label: 'Disgust',   color: '#10b981' },
-  fear:      { emoji: '😨', label: 'Fear',      color: '#8b5cf6' },
-  fearful:   { emoji: '😨', label: 'Fear',      color: '#8b5cf6' },
-  happy:     { emoji: '😊', label: 'Happy',     color: '#a78bfa' },
-  happiness: { emoji: '😊', label: 'Happy',     color: '#a78bfa' },
-  neutral:   { emoji: '😐', label: 'Neutral',   color: '#6b7280' },
-  sad:       { emoji: '😢', label: 'Sad',       color: '#3b82f6' },
-  sadness:   { emoji: '😢', label: 'Sad',       color: '#3b82f6' },
-  calm:      { emoji: '😌', label: 'Calm',      color: '#00d2be' },
+  angry: { emoji: '😠', label: 'Angry', color: '#ef4444' },
+  anger: { emoji: '😠', label: 'Angry', color: '#ef4444' },
+  disgust: { emoji: '🤢', label: 'Disgust', color: '#10b981' },
+  fear: { emoji: '😨', label: 'Fear', color: '#8b5cf6' },
+  fearful: { emoji: '😨', label: 'Fear', color: '#8b5cf6' },
+  happy: { emoji: '😊', label: 'Happy', color: '#a78bfa' },
+  happiness: { emoji: '😊', label: 'Happy', color: '#a78bfa' },
+  neutral: { emoji: '😐', label: 'Neutral', color: '#6b7280' },
+  sad: { emoji: '😢', label: 'Sad', color: '#3b82f6' },
+  sadness: { emoji: '😢', label: 'Sad', color: '#3b82f6' },
+  calm: { emoji: '😌', label: 'Calm', color: '#00d2be' },
   surprised: { emoji: '😲', label: 'Surprised', color: '#f59e0b' },
-  surprise:  { emoji: '😲', label: 'Surprised', color: '#f59e0b' },
+  surprise: { emoji: '😲', label: 'Surprised', color: '#f59e0b' },
   // Short code fallbacks
-  ang: { emoji: '😠', label: 'Angry',   color: '#ef4444' },
-  hap: { emoji: '😊', label: 'Happy',   color: '#a78bfa' },
-  sad: { emoji: '😢', label: 'Sad',     color: '#3b82f6' },
+  ang: { emoji: '😠', label: 'Angry', color: '#ef4444' },
+  hap: { emoji: '😊', label: 'Happy', color: '#a78bfa' },
+  sad: { emoji: '😢', label: 'Sad', color: '#3b82f6' },
   neu: { emoji: '😐', label: 'Neutral', color: '#6b7280' },
 }
 
@@ -142,7 +142,7 @@ export default function App() {
     if (dropped) handleFileSelected(dropped)
   }, [])
 
-  const handleDragOver  = useCallback((e) => { e.preventDefault(); setDragOver(true) }, [])
+  const handleDragOver = useCallback((e) => { e.preventDefault(); setDragOver(true) }, [])
   const handleDragLeave = useCallback(() => setDragOver(false), [])
 
   // ── File selection ──────────────────────────────────────────────────────────
@@ -250,32 +250,32 @@ export default function App() {
 
   // ── Button state ────────────────────────────────────────────────────────────
   const isProcessing = uploading || transcribing || diarizing || emotioning || laptiming
-  const currentStep  = lapTimes ? 5 : emotion ? 4 : diarization ? 3 : transcript ? 2 : sessionId ? 1 : 0
+  const currentStep = lapTimes ? 5 : emotion ? 4 : diarization ? 3 : transcript ? 2 : sessionId ? 1 : 0
 
   function nextAction() {
-    if (lapTimes)    return null
-    if (emotion)     return handleLapTiming
+    if (lapTimes) return null
+    if (emotion) return handleLapTiming
     if (diarization) return handleEmotion
-    if (transcript)  return handleDiarize
-    if (sessionId)   return handleTranscribe
+    if (transcript) return handleDiarize
+    if (sessionId) return handleTranscribe
     return handleUpload
   }
 
   function nextLabel() {
-    if (lapTimes)    return <><span>✓</span> Complete</>
-    if (emotion)     return <><span>📈</span> Lap Chart</>
+    if (lapTimes) return <><span>✓</span> Complete</>
+    if (emotion) return <><span>📈</span> Lap Chart</>
     if (diarization) return <><span>🧠</span> Analyze Stress</>
-    if (transcript)  return <><span>👥</span> Diarize</>
-    if (sessionId)   return <><span>🎙</span> Transcribe</>
+    if (transcript) return <><span>👥</span> Diarize</>
+    if (sessionId) return <><span>🎙</span> Transcribe</>
     return <><span>↑</span> Upload</>
   }
 
   function busyLabel() {
-    if (uploading)   return <><span className="spinner"/> Uploading…</>
-    if (transcribing)return <><span className="spinner"/> Transcribing…</>
-    if (diarizing)   return <><span className="spinner"/> Diarizing…</>
-    if (emotioning)  return <><span className="spinner"/> Analyzing…</>
-    if (laptiming)   return <><span className="spinner"/> Loading…</>
+    if (uploading) return <><span className="spinner" /> Uploading…</>
+    if (transcribing) return <><span className="spinner" /> Transcribing…</>
+    if (diarizing) return <><span className="spinner" /> Diarizing…</>
+    if (emotioning) return <><span className="spinner" /> Analyzing…</>
+    if (laptiming) return <><span className="spinner" /> Loading…</>
     return null
   }
 
@@ -310,18 +310,24 @@ export default function App() {
               </div>
             </div>
 
+            <nav className="header-nav" aria-label="Main navigation">
+              <span>Overview</span>
+              <span>Pipeline</span>
+              <span>Telemetry</span>
+            </nav>
+
             <div className="status-bar">
               <div className="status-item">
                 <StatusDot ok={backendOk} loading={backendOk === null} />
                 <span>
                   {backendOk === null ? 'connecting…'
                     : backendOk ? `api v${backendVersion ?? '?'}`
-                    : 'offline'}
+                      : 'offline'}
                 </span>
               </div>
               {sessionId && (
-                <div className="live-indicator">
-                  <span className="dot orange pulse" />
+                <div className="live-chip">
+                  <span className="dot" />
                   live session
                 </div>
               )}
@@ -340,10 +346,9 @@ export default function App() {
               <div className="pipeline">
                 {PIPELINE_STEPS.map((step, i) => (
                   <Fragment key={step.id}>
-                    <div className={`pipeline-step ${
-                      step.phase < currentStep ? 'done' :
-                      step.phase === currentStep ? 'active' : ''
-                    }`}>
+                    <div className={`pipeline-step ${step.phase < currentStep ? 'done' :
+                        step.phase === currentStep ? 'active' : ''
+                      }`}>
                       {step.phase < currentStep ? '✓ ' : ''}{step.label}
                     </div>
                     {i < PIPELINE_STEPS.length - 1 && (
@@ -358,21 +363,104 @@ export default function App() {
       )}
 
       <main>
-        {/* ── Hero / Upload — shown until session active ── */}
         {!sessionId && (
           <>
             <section className="hero">
-              <div className="container">
-                <div className="hero-eyebrow">
-                  <span>🏁</span> F1 Radio Analysis · Hackathon MVP
+              <div className="container hero-shell">
+                <div className="hero-copy">
+                  <div className="hero-kicker">
+                    <span>🏁</span> F1 Radio Analysis · Race Ops
+                  </div>
+
+                  <h1 className="hero-title">
+                    Hear what the <span className="accent">data</span> can’t.
+                  </h1>
+
+                  <p className="hero-subtitle">
+                    Upload race radio audio, detect driver stress from voice, and correlate the emotional load against every lap in real time.
+                  </p>
+
+                  <div className="hero-actions">
+                    <button className="btn btn-primary" onClick={() => fileInputRef.current?.click()}>
+                      Upload Audio
+                    </button>
+                    <button className="btn btn-secondary" onClick={() => fileInputRef.current?.click()}>
+                      Browse Files
+                    </button>
+                  </div>
+
+                  <div className="hero-inline-metrics">
+                    <div className="metric-card">
+                      <span className="metric-label">Lap delta</span>
+                      <span className="metric-value">+1.12s</span>
+                    </div>
+                    <div className="metric-card">
+                      <span className="metric-label">Stress peak</span>
+                      <span className="metric-value">82%</span>
+                    </div>
+                    <div className="metric-card">
+                      <span className="metric-label">Radio turns</span>
+                      <span className="metric-value">24</span>
+                    </div>
+                  </div>
                 </div>
-                <h1 className="hero-title">
-                  Hear What the <span className="accent">Data</span> Can't
-                </h1>
-                <p className="hero-subtitle">
-                  Upload race radio audio. Detect driver stress from voice.
-                  Correlate with lap times.
-                </p>
+
+                <aside className="hero-panel" aria-label="Live telemetry preview">
+                  <div className="panel-topline">
+                    <span>Session feed</span>
+                    <span className="status-pill"><span className="dot" /> live</span>
+                  </div>
+
+                  <div className="hero-panel-grid">
+                    <div className="hero-panel-row">
+                      <span className="hero-panel-time">00:28</span>
+                      <div className="hero-panel-label">
+                        <span className="hero-panel-dot" />
+                        <div>
+                          <strong>Driver</strong>
+                          <span> / We need pace</span>
+                        </div>
+                      </div>
+                      <span className="hero-panel-value">68%</span>
+                    </div>
+
+                    <div className="hero-panel-row">
+                      <span className="hero-panel-time">01:14</span>
+                      <div className="hero-panel-label">
+                        <span className="hero-panel-dot" style={{ background: '#ffb84d' }} />
+                        <div>
+                          <strong>Engineer</strong>
+                          <span> / Keep tyre temp</span>
+                        </div>
+                      </div>
+                      <span className="hero-panel-value">53%</span>
+                    </div>
+
+                    <div className="hero-panel-row">
+                      <span className="hero-panel-time">02:03</span>
+                      <div className="hero-panel-label">
+                        <span className="hero-panel-dot" style={{ background: '#7ef0d9' }} />
+                        <div>
+                          <strong>Driver</strong>
+                          <span> / Copy, pushing</span>
+                        </div>
+                      </div>
+                      <span className="hero-panel-value">81%</span>
+                    </div>
+
+                    <div className="hero-panel-row">
+                      <span className="hero-panel-time">02:57</span>
+                      <div className="hero-panel-label">
+                        <span className="hero-panel-dot" style={{ background: '#a78bfa' }} />
+                        <div>
+                          <strong>Engineer</strong>
+                          <span> / Strategy call</span>
+                        </div>
+                      </div>
+                      <span className="hero-panel-value">44%</span>
+                    </div>
+                  </div>
+                </aside>
               </div>
             </section>
 
@@ -390,13 +478,17 @@ export default function App() {
                   onKeyDown={(e) => e.key === 'Enter' && fileInputRef.current?.click()}
                   aria-label="Upload audio file"
                 >
-                  <span className="upload-icon">🎙</span>
-                  <p className="upload-title">
-                    {dragOver ? 'Drop it here!' : 'Drop race radio audio here'}
-                  </p>
-                  <p className="upload-hint">Or click to browse — cockpit audio, race radio, comms</p>
-                  <div className="upload-formats">
-                    {FORMATS.map(f => <span key={f} className="format-tag">{f}</span>)}
+                  <div className="upload-zone-inner">
+                    <div className="upload-visual">🎙</div>
+                    <div className="upload-copy">
+                      <div className="upload-title">
+                        {dragOver ? 'Drop radio session here' : 'Launch trackside audio analysis'}
+                      </div>
+                      <div className="upload-hint">Upload race radio, cockpit audio, or comms to map stress against lap tempo.</div>
+                      <div className="upload-formats">
+                        {FORMATS.map(f => <span key={f} className="format-tag">{f}</span>)}
+                      </div>
+                    </div>
                   </div>
                 </div>
 
