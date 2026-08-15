@@ -330,8 +330,8 @@ async def transcribe(session_id: str):
     if result_data is None:
         if whisper_model is None:
             import whisper
-            print("[ASR] Lazy-loading local Whisper model (tiny.pt)...")
-            whisper_model = whisper.load_model(r"E:\MODELS\Whisper\tiny.pt")
+            print("[ASR] Lazy-loading local Whisper model (tiny)...")
+            whisper_model = whisper.load_model("tiny")
             print("[ASR] Local Whisper model loaded.")
 
         print(f"[ASR] Running local transcription on {audio_path}...")
@@ -415,7 +415,7 @@ async def diarize(session_id: str):
     # ── Role Assignment: Transcript Keywords + Turn Pattern Fallback ──
     if whisper_model is None:
         import whisper
-        whisper_model = whisper.load_model(r"E:\MODELS\Whisper\tiny.pt")
+        whisper_model = whisper.load_model("tiny")
 
     whisper_result = await asyncio.to_thread(whisper_model.transcribe, audio_path)
     whisper_segments = whisper_result.get("segments", [])
